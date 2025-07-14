@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-dx3xlw=o3+3_rli+^b2yxoo6bo+*3k&9))15i7=mc0956d9bfb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['examen-cloud-computing.onrender.com']
 
 
 # Application definition
