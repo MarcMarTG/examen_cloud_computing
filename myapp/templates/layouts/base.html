@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,35 +10,37 @@
     <title>Django Projects</title>
     <link rel="stylesheet" href="{% static 'style/main.css' %}">
 </head>
+
 <body>
-    
+
     <nav class="navbar container">
         <ul>
             <li>
-                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'index' %}">Inicio</a>
             </li>
             <li>
-                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'about' %}">Nosotros</a>
             </li>
             <li>
-                <a href="{% url 'projects' %}">Projects</a>
+                <a href="{% url 'projects' %}">Proyectos</a>
             </li>
             <li>
-                <a href="{% url 'tasks' %}">Tasks</a>
+                <a href="{% url 'tasks' %}">Tareas</a>
             </li>
             <li>
-                <a href="{% url 'create_task' %}">Create task</a>
+                <a href="{% url 'create_task' %}">Crear Tarea</a>
             </li>
             <li>
-                <a href="{% url 'create_project' %}">Create Project</a>
+                <a href="{% url 'create_project' %}">Crear Proyecto</a>
             </li>
         </ul>
     </nav>
-    
+
     <main class="container">
         {% block content %}
         {% endblock %}
     </main>
 
 </body>
+
 </html>
