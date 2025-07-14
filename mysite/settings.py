@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['examen-cloud-computing.onrender.com']
 
+CSRF_TRUSTED_ORIGINS = ['https://examen-cloud-computing.onrender.com']
 
 # Application definition
 
