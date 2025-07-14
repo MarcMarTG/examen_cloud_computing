@@ -1,10 +1,10 @@
 from django.http import HttpResponse
-from .models import Project, Task
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST   
+from .models import Project, Task
 from .forms import CreateNewTask, CreateNewProject
-
-# Create your views here.
-
+from django.db.models import Count  # para contar tareas
+from django.views.decorators.http import require_http_methods
 
 def index(request):
     title = 'Django Course!!'
@@ -24,12 +24,21 @@ def hello(request, username):
     return HttpResponse("<h2>Hello %s</h2>" % username)
 
 
+
+
 def projects(request):
-    # projects = list(Project.objects.values())
-    projects = Project.objects.all()
+    query = request.GET.get('q', '')
+    if query:
+        projects = Project.objects.filter(name__icontains=query)
+    else:
+        projects = Project.objects.all()
+    # Anotar con la cantidad de tareas por proyecto (para contador)
+    projects = projects.annotate(task_count=Count('task'))
     return render(request, 'projects/projects.html', {
-        'projects': projects
+        'projects': projects,
+        'query': query,
     })
+
 
 
 def tasks(request):
@@ -46,9 +55,18 @@ def create_task(request):
             'form': CreateNewTask()
         })
     else:
-        Task.objects.create(
-            title=request.POST['title'], description=request.POST['description'], project_id=2)
-        return redirect('tasks')
+        form = CreateNewTask(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            project = form.cleaned_data['project']
+            Task.objects.create(title=title, description=description, project=project)
+            return redirect('tasks')
+        else:
+            return render(request, 'tasks/create_task.html', {
+                'form': form
+            })
+
 
 
 def create_project(request):
@@ -67,3 +85,42 @@ def project_detail(request, id):
         'project': project,
         'tasks': tasks
     })
+
+def edit_project(request, id):
+    project = get_object_or_404(Project, id=id)
+    if request.method == 'GET':
+        form = CreateNewProject(instance=project)
+        return render(request, 'projects/edit_project.html', {'form': form, 'project': project})
+    else:
+        form = CreateNewProject(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('projects')
+        return render(request, 'projects/edit_project.html', {'form': form, 'project': project})
+
+
+
+
+@require_http_methods(["GET", "POST"])
+def delete_project(request, id):
+    project = get_object_or_404(Project, id=id)
+    if request.method == 'POST':
+        project.delete()
+        return redirect('projects')
+    return render(request, 'projects/confirm_delete.html', {'project': project})
+
+
+@require_POST
+def task_delete(request, id):
+
+    task = get_object_or_404(Task, id=id)
+    task.delete()
+    return redirect('tasks')
+
+@require_POST
+def task_done(request, id):
+
+    task = get_object_or_404(Task, id=id)
+    task.done = True         
+    task.save()
+    return redirect('tasks')
