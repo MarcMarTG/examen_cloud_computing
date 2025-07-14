@@ -4,14 +4,22 @@
 
 <h1>Projects</h1>
 
-{% for project in projects %}
+<form method="get" action=".">
+    <input type="text" name="q" placeholder="Buscar proyecto" value="{{ query }}">
+    <button type="submit">Buscar</button>
+</form>
 
+{% for project in projects %}
 <article class="card">
     <a href="{% url 'project_detail' project.id %}">
-        <h1>{{project.name}}</h1>
+        <h1>{{ project.name }}</h1>
     </a>
-</article>
+    <p>Tareas: {{ project.task_count }}</p>
+    <p>Creado el: {{ project.created_at|date:"d M Y" }}</p>
 
+    <a href="{% url 'edit_project' project.id %}">Editar</a> |
+    <a href="{% url 'delete_project' project.id %}">Eliminar</a>
+</article>
 {% endfor %}
 
 {% endblock %}

@@ -2,14 +2,12 @@
 
 {% block content %}
 
-<h1>Create Project</h1>
+<h1>Editar proyecto: {{ project.name }}</h1>
 
 <form method="POST">
     {% csrf_token %}
-    {{form}}
-    <button>
-        Save
-    </button>
+    {{ form }}
+    <button type="submit">Guardar</button>
 </form>
 
 {% endblock %}
