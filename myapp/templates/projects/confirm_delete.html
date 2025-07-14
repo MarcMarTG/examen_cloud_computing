@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<h2>¿Estás seguro de eliminar el proyecto "{{ project.name }}"?</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'projects' %}">Cancelar</a>
+</form>
+
+{% endblock %}
