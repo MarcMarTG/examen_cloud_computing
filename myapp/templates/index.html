@@ -1,14 +1,19 @@
 {% extends 'layouts/base.html' %}
 
-
 {% block content %}
-
 {% load static %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6">
+    <div class="card shadow bg-light text-dark text-center p-4">
+      <h1 class="mb-4">🎉 Bienvenidos a nuestra página</h1>
 
-<h1>{{ title }}</h1>
+      <img src="{% static 'foto.jpg' %}" alt="Imagen bienvenida" class="img-fluid mb-4" style="max-width: 300px; margin: 0 auto;">
 
-<img src="{% static 'prueba.png' %}" alt="" width="70">
-
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, dolor? Aperiam, deserunt quidem nam sunt est quaerat nesciunt non repellat sit alias dolore nobis animi molestias ducimus qui eligendi itaque.</p>
+      <p class="lead">
+        Esta es nuestra página realizada con <strong>Django</strong> para el examen de <strong>Cloud Computing</strong>.
+      </p>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
