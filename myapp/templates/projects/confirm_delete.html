@@ -1,13 +1,21 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow bg-light text-dark">
+            <div class="card-body text-center">
+                <h3 class="card-title mb-4 text-danger">⚠️ Confirmar Eliminación</h3>
 
-<h2>¿Estás seguro de eliminar el proyecto "{{ project.name }}"?</h2>
+                <p class="lead">¿Estás seguro de que deseas eliminar el proyecto <strong>"{{ project.name }}"</strong>?</p>
 
-<form method="POST">
-    {% csrf_token %}
-    <button type="submit">Sí, eliminar</button>
-    <a href="{% url 'projects' %}">Cancelar</a>
-</form>
-
+                <form method="POST" class="d-flex justify-content-center gap-3 mt-4">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">🗑 Sí, eliminar</button>
+                    <a href="{% url 'projects' %}" class="btn btn-secondary">↩️ Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

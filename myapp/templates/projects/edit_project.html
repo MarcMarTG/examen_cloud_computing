@@ -1,13 +1,35 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow bg-light text-dark">
+            <div class="card-body">
+                <h2 class="card-title mb-4 text-center">✏️ Editar Proyecto: <span class="text-primary">{{ project.name }}</span></h2>
 
-<h1>Editar proyecto: {{ project.name }}</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small">
+                                    {{ field.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Guardar</button>
-</form>
-
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">
+                            💾 Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
