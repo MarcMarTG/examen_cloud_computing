@@ -1,14 +1,25 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<h1>{{project}}</h1>
+<div class="container">
+    <h1 class="text-center mb-4">📁 Proyecto: <span class="text-primary">{{ project }}</span></h1>
 
-{% for task in tasks %}
-
-<div class="card">
-    <h1>{{task.title}}</h1>
+    {% if tasks %}
+    <div class="row row-cols-1 g-4">
+        {% for task in tasks %}
+        <div class="col">
+            <div class="card shadow-sm bg-light text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">📌 {{ task.title }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center mt-4">
+        Este proyecto no tiene tareas asociadas.
+    </div>
+    {% endif %}
 </div>
-
-{% endfor %}
-
 {% endblock %}
