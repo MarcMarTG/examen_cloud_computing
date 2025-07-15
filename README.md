@@ -105,9 +105,11 @@ Si el proyecto fue clonado desde un repositorio y presenta errores relacionados 
 python manage.py makemigrations  
 python manage.py migrate
 ```
-
-### • Visualización de la base de datos  
-Si deseas explorar visualmente la base de datos SQLite, puedes utilizar **DB Browser for SQLite**. El instalador se encuentra incluido en el repositorio o también puedes descargarlo desde su sitio oficial.
+Si al ejecutar el proyecto de manera local aparece un mensaje de 
+DisallowedHost at / Invalid HTTP_HOST header: '127.0.0.1:8000'.
+Se debe de irse a Setting.py y cambiar esta opción ALLOWED_HOSTS =
+['examen-cloud-computing.onrender.com'], por esta
+ALLOWED_HOSTS = ['*'] para poder ejecutar de manera local
 
 ---
 
